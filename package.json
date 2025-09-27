@@ -1,0 +1,35 @@
+{
+  "name": "securelint-pro",
+  "displayName": "SecureLint Pro",
+  "description": "Semgrep-powered security checks for JS/TS/Python with quick fixes, status bar, and explanations.",
+  "publisher": "your-name",
+  "version": "0.0.1",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Linters"],
+  "activationEvents": ["onLanguage:javascript", "onLanguage:typescript", "onLanguage:python"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "SecureLint Pro",
+      "properties": {
+        "securelintPro.semgrepPath": { "type": "string", "default": "semgrep", "description": "Path to the semgrep executable." },
+        "securelintPro.rulesFolder": { "type": "string", "default": "${extensionPath}/rules", "description": "Folder containing Semgrep rules." }
+      }
+    },
+    "commands": [
+      { "command": "securelintPro.explainFinding", "title": "SecureLint Pro: Explain Finding" },
+      { "command": "securelintPro.scanActiveFile", "title": "SecureLint Pro: Scan Active File" }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0",
+    "tslib": "^2.6.0"
+  }
+}

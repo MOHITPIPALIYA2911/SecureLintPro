@@ -1,0 +1,22 @@
+
+rules:
+  - id: securelintpro.missing.auth
+    message: "Route lacks authorization guard."
+    severity: WARNING
+    languages: [javascript, typescript, python]
+    patterns:
+      - pattern-either:
+          # Express/Router: handler without middleware
+          - pattern: app.$METHOD($ROUTE, $HANDLER)
+          - pattern: router.$METHOD($ROUTE, $HANDLER)
+          # Flask
+          - pattern: |
+              @app.route($ROUTE)
+              def $HANDLER(...):
+                ...
+      - pattern-not: app.$METHOD($ROUTE, requireAuth, ...)
+      - pattern-not: router.$METHOD($ROUTE, requireAuth, ...)
+      - pattern-not: |
+          @login_required
+          def $HANDLER(...):
+            ...
